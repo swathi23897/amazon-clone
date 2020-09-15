@@ -23,7 +23,11 @@ app.post("/payments/create", async (request, response) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
         amount: total, // subunits of the currency
-        currency: "usd",
+        currency: "inr",
+        payment_method_types: ['card'],
+        metadata: {
+            order_id: '6735',
+          },
     })
 
 
