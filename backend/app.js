@@ -1,5 +1,5 @@
 
-
+const path = require("path")
 const express = require("express");
 const cors = require("cors");
 const stripe = require("stripe")("sk_test_51HQz8aIzzETFhGbQy3Fila0tRuTKpcTniOkXi9alo4GPJf8qvCTMpRUe6p9sSPpE2eRsRCclfjXedEpW9KZBCxIr00GJtar5h7");
@@ -38,6 +38,15 @@ app.post("/payments/create", async (request, response) => {
         clientSecret: paymentIntent.client_secret,
     });
 });
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(__dirname,'build'));
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'','build','index.html'));
+    })
+
+
+}
 
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
