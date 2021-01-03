@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import './Payment.css'
 import { useStateValue } from './StateProvider';
-import Checkout from './Checkout';
+
 import CheckoutProduct from './CheckoutProduct';
 import { Link } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { getBasketTotal } from './reducer';
 import CurrencyFormat from 'react-currency-format'
-import axios from './axios'
+import axios from 'axios';
 import { useHistory } from 'react-router-dom'
 import { db } from './firebase'
 function Payment() {
@@ -24,11 +24,8 @@ function Payment() {
     useEffect(() => {
         // generate spl stripe secret which allows us to charge customer
         const getClientSecret = async () => {
-            const response = await axios.post({
-                method: 'post',
-                //  stripe expects currecies
-                url: `payments/create?total=${getBasketTotal(basket) * 100}`
-            })
+            const response = await axios.post(`/payments/create?total=${getBasketTotal(basket) * 100}`
+            )
             setClientSecret(response.data.clientSecret)
         }
 
