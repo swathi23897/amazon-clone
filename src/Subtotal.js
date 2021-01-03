@@ -6,7 +6,17 @@ import { getBasketTotal } from './reducer';
 import {useHistory} from 'react-router-dom';
 function Subtotal() {
     const history = useHistory()
-    const [{basket},dispatch] = useStateValue()
+    const [{basket,user},dispatch] = useStateValue()
+    const checkout = e =>{
+        console.log(user)
+        if(user==null){
+            alert("Please login to continue shopping")
+        }
+        else{
+            history.push('/payment')
+        }
+      
+    }
     
     return (
     <div className="subtotal">
@@ -28,7 +38,7 @@ function Subtotal() {
   
    />
 
-   <button onClick={e=>history.push('/payment')}>Proceed to Checkout</button>
+   <button onClick={checkout}>Proceed to Checkout</button>
 
         </div>
     )

@@ -24,7 +24,7 @@ function Payment() {
     useEffect(() => {
         // generate spl stripe secret which allows us to charge customer
         const getClientSecret = async () => {
-            const response = await axios({
+            const response = await axios.post({
                 method: 'post',
                 //  stripe expects currecies
                 url: `payments/create?total=${getBasketTotal(basket) * 100}`
@@ -72,7 +72,7 @@ function Payment() {
                         <h3>Delivery Address</h3>
                     </div>
                     <div className="payment_address">
-                        <p>{user ?.email}</p>
+                        <p>{user ? user.email : ""}</p>
                         <p>123 React Lane</p>
                         <p>Los Angeles,CA</p>
                     </div>
